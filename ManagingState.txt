@@ -1,0 +1,141 @@
+1. The Store:
+-------------------------------------------------------------
+GOAL - make state management more predictable in any application.
+
+--> Application data should be stored outside of the app and
+should be just refrenced by the app.
+--> 'Data is stored outside of th UI code and is just refrenced
+from the UI code.'
+
+The State Tree:
+  {
+  recipes: [
+    { … },
+    { … },
+    { … }
+  ],
+  ingredients: [
+    { … },
+    { … },
+    { … },
+    { … },
+    { … },
+    { … }
+  ],
+  products: [
+    { … },
+    { … },
+    { … },
+    { … }
+  ]
+}
+all of the data for this imaginary cooking site is stored in
+one single object.
+
+We will need a way for Getting the state, Listening for
+changes, and Updating the state.
+
+We will wrap all of it together in a concept called The Store.
+
+Redux tries to accomplish more predictable state by having
+one 'single State Tree'. This State Tree is an object that
+stores the entire state for an application.
+
+2. Create Store: Getting and Listening:
+------------------------------------------------------------
+ - The 'Store' has the following information:
+ - the state tree
+ - a way to get the state tree
+ - a way to listen and respond to the state changing
+ - a way to update the state
+
+ Rule #1 - Only an event can change the state of the store.
+
+ Actions: (records of state changes)
+
+ Goal Actions:
+
+ {
+   type: 'ADD_GOAL',
+   goal: {
+     id: 0,
+     name: 'Run a Marathon'
+   }
+ }
+
+ When an event takes place in a Redux application, we use a
+ plain javascript object to keep track of what the specific
+ event was. This object is called Action.
+
+ A plain javascript object in Redux is special so that every
+ Action must have a 'type' property to let our app know exactly
+ what event just took place.
+
+Its best to pass as little data as possible in each Action.
+
+3. Updating State:
+------------------------------------------------------------
+The whole goal of Redux is to increase predictability:
+  Redux is a predictable state container for javascript apps.
+
+Rule #2 - The function that returns the new state needs to
+be a pure function.
+
+Pure Functions:
+  1. Returns the same result if the same arguments are passed
+  in.
+  2. Depends solely on the arguments passed in to them.
+  3. Does not produce side effects.
+--> All of these are required for being a Pure Function. Pure
+Functions are predictable unlike un-Pure Functions.
+
+example:
+
+const square = x => x * x;
+
+--> This function is pure because it outputs the same value
+every single time given that the same argument is passed
+into it.
+
+impure Function:
+
+// `calculateTip()` is an impure function
+
+const tipPercentage = 0.15;
+
+const calculateTip = cost => cost * tipPercentage;
+
+This can make it a Pure function:
+
+const calculateTip = (cost, tipPercentage = 0.15) => cost * tipPercentage;
+
+Example of a Reducer:
+
+function appReducer(state, action) {
+    if (action.type === 'DELETE_FLAVOR') {
+        return state.filter(b => b.flavor !== action.flavor)
+    }
+
+    return state;
+}
+
+{ actions } = represent the different events that will change
+the state of our store.
+
+ Reducers = a function that takes the current state and
+ an action that occured and returns the new state.
+
+ createStore() = responsible for creating the actual store.
+
+dispatch() is called with an Action
+the reducer that was passed to createStore() is called with the current state tree and the action...this updates the state tree
+because the state has (potentially) changed, all listener functions that have been registered with the subscribe() method are called
+
+In this section, we learned about a number of important points about Redux. We learned about pure functions, a Reducer function (which, itself, needs to be a pure function), dispatching changes in our store, and identifying which parts of our code are generic library code and which are specific to our app.
+
+
+
+
+
+
+
