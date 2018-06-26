@@ -18,6 +18,8 @@ action, it can carry out a number of operations, including:
 
 Reduxes create store method:
  - const store = Redux.createStore( <reducer-function>, <middleware-functions> )
+  -- or --
+ - const store = Redux.createStore( <reducer-function>, Redux.applyMiddleware(<middleware-functions>) )
 
 
 More specifically, we can pass in the applyMiddleware()
