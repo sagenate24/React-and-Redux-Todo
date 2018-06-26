@@ -4,3 +4,12 @@ If you recall, the way Redux works right now is:
  - store.dispatch() calls are made
  - if the Redux store was set up with any middleware, those functions are run
  - then the reducer is invoked
+
+ Instead what you can do is a technique called --optimistic
+ updates--. Instead of waiting for confirmation from the
+ server, just instantly remove the user from the UI when
+ the user clicks “delete”, then, if the server responds
+ back with an error that the user wasn’t actually deleted,
+you can add the information back in. This way your user
+gets that instant feedback from the UI, but, under the hood,
+the request is still asynchronous.

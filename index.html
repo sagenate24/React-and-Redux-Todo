@@ -103,8 +103,8 @@
     }
 
     function loading(state = true, action) {
-      switch(action.type) {
-        case RECEIVE_DATA:RECEIVE_DATA
+      switch (action.type) {
+        case RECEIVE_DATA: RECEIVE_DATA
           return false
         default:
           return state
@@ -171,21 +171,37 @@
     class Todos extends React.Component {
       addItem = (e) => {
         e.preventDefault();
-        const name = this.input.value;
-        this.input.value = ''
 
-        this.props.store.dispatch(addTodoAction({
-          name,
-          complete: false,
-          id: generateId()
-        }))
+        return API.saveTodo(this.input.value)
+          .then((todo) => {
+            this.props.store.dispatch(addTodoAction(todo))
+            this.input.value = '';
+          })
+          .catch((todo) => {
+            alert('Error occured. This must be annoying Right??!!');
+          })
       }
+
       removeItem = (todo) => {
         this.props.store.dispatch(removeTodoAction(todo.id));
+
+        return API.deleteTodo(todo.id)
+          .catch(() => {
+            this.props.store.dispatch(addTodoAction(todo))
+            alert('An error occured. Try again.');
+          })
       }
+
       toggleItem = (id) => {
         this.props.store.dispatch(toggleTodoAction(id));
+
+        return API.saveTodoToggle(id)
+          .catch(() => {
+            this.props.store.dispatch(toggleTodoAction(id));
+            alert('An error occurred. Try again.');
+          })
       }
+
       render() {
         return (
           <div>
@@ -210,17 +226,24 @@
     class Goals extends React.Component {
       addItem = (e) => {
         e.preventDefault();
-        const name = this.input.value;
-        this.input.value = ''
 
-        this.props.store.dispatch(addGoalAction({
-        id: generateId(),
-        name,
-      }))
+        return API.saveGoal(this.input.value)
+          .then((goal) => {
+            this.props.store.dispatch(addGoalAction(goal))
+            this.input.value = ''
+          })
+          .catch(() => alert('There was an error. Tryyy again bucko.'));
       }
+
       removeItem = (goal) => {
         this.props.store.dispatch(removeGoalAction(goal.id))
+
+        return API.deleteGoal(goal.id).catch(() => {
+          this.props.store.dispatch(addGoalAction(goal));
+          alert('An error occurred. Try again.')
+        })
       }
+
       render() {
         return (
           <div>
@@ -254,6 +277,7 @@
 
         store.subscribe(() => this.forceUpdate())
       }
+
       render() {
         const { store } = this.props;
         const { todos, goals, loading } = store.getState()
