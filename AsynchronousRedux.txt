@@ -1,0 +1,6 @@
+The important skill that you'll be learning in this
+lesson is how to make asynchronous requests in Redux.
+If you recall, the way Redux works right now is:
+ - store.dispatch() calls are made
+ - if the Redux store was set up with any middleware, those functions are run
+ - then the reducer is invoked
