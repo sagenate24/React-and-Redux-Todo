@@ -1,0 +1,16 @@
+Redux middle ware - how it helps us hook into the Redux
+Lifecycle and how it is benificial.
+
+check and dispatch then store.dispatch then reducer.
+
+change checkAndDispatch function with redux middleWare.
+
+MiddleWare: …a third-party extension point between
+dispatching an action, and the moment it reaches the reducer.
+
+What's great about middleware is that once it receives the action, it can carry out a number of operations, including:
+
+1. producing a side effect (e.g., logging information about the store)
+2. processing the action itself (e.g., making an asynchronous HTTP request)
+3. redirecting the action (e.g., to another piece of middleware)
+4. dispatching supplementary actions

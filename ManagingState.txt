@@ -133,7 +133,7 @@ because the state has (potentially) changed, all listener functions that have be
 
 In this section, we learned about a number of important points about Redux. We learned about pure functions, a Reducer function (which, itself, needs to be a pure function), dispatching changes in our store, and identifying which parts of our code are generic library code and which are specific to our app.
 
-
+Store, actions, and reducers together make the foundation of Redux.
 
 
 
