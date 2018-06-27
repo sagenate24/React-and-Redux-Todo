@@ -1,3 +1,6 @@
 Action Creator in redux thunk.
 keep our ui logic away from our api code.
 action creators will become the source of every change in state
+
+A connected component is connected to the Redux store and is responsible for getting data from the store.
+A presentational component should not access the store. It should receive any information it needs as props and then just render a UI.
